@@ -1,0 +1,10 @@
+.posts {
+    background-color: white;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    box-shadow: -1px 0px 5px 5px #F4f5fa;
+}
+
+.posts .post {
+    justify-content: flex-end;
+}
