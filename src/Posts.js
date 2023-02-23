@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Posts.css";
 import PostItem from "./PostItem";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
 
+const getLocalItems = () => {
+  let list = localStorage.getItem('post');
+  console.log(list);
+
+  if (list) {
+    return JSON.parse(localStorage.getItem('post'))
+  } else {
+    return [];
+  }
+}
+
 
 function Posts() {
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(getLocalItems());
   const [title, setTitle] = useState("");
   const [open, setOpen] = React.useState(false);
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
+  const { isAuthenticated } = useAuth0();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,9 +31,18 @@ function Posts() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    localStorage.setItem('post', JSON.stringify(posts))
+  }, [posts]);
+
+  const deleteItem = (index) => {
+    const updateditems = posts.filter((post) => {
+      return index !== post.id;
+    })
+    setPosts(updateditems);
+  }
+
   const handleSave = () => {
-
-
 
     let obj = {
       upvote: Math.floor(Math.random() * 400),
@@ -46,7 +65,7 @@ function Posts() {
         {
           isAuthenticated ? (
             <>
-            <Button variant="contained" onClick={handleClickOpen}>Add new post</Button>
+              <Button variant="contained" onClick={handleClickOpen}>Add new post</Button>
               <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add new post</DialogTitle>
                 <DialogContent>
@@ -60,17 +79,22 @@ function Posts() {
               </Dialog>
             </>
           ) : (<><Button variant="contained" onClick={() => alert("Please Login . . . .")}>Add new post</Button>
-          
+
           </>)
         }
 
-    </div>
+      </div>
 
       {
-    posts.map((post) => (
-      <PostItem post={post} />
-    ))
-  }
+        posts.map((post) => {
+          return (
+            <div className="eachItem" key={post.id}>
+              <PostItem post={post} />
+              <i className="far fa-trash-alt add-btn" title="Delete Item" onClick={() => deleteItem(post.id)} ></i>
+            </div>
+          )
+        })
+      }
 
     </div >
 

@@ -8,3 +8,9 @@
 .posts .post {
     justify-content: flex-end;
 }
+
+.eachItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+}

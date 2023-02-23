@@ -13,7 +13,7 @@
 }
 
 .post__left>i {
-    font-size: large;
+    font-size: 25px;
     color: #898ea2;
     cursor: pointer;
 }
@@ -33,7 +33,6 @@
 }
 
 .post__right>h3 a {
-    /* font-weight: bold; */
     font-weight: 600;
     font-size: medium;
     color: #464855;

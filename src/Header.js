@@ -28,7 +28,7 @@ function Header() {
 
           {
             isAuthenticated ? (<>
-              <img className="img" src={user.picture} />
+              <img className="img1" src={user.picture} alt="user" />
               <span>{user.name}</span>
               <Button variant="contained" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Log Out</Button >
             </>

@@ -36,9 +36,9 @@ function PostItem(props) {
         </span>
         <p className="post__info">
           <Link to={`/${post.subreddit}/${link}/comments`}>
-            {post.comments_count} comments
+            {post.comments_count} comments <i className="fas fa-comment"></i>
           </Link>{" "}
-          | share | save | hide | report
+          | share <i className="fas fa-share"></i> | save <i className="fas fa-save"></i> | hide | report
         </p>
       </div>
     </div>
