@@ -35,16 +35,19 @@ function Posts() {
     localStorage.setItem('post', JSON.stringify(posts))
   }, [posts]);
 
-  const deleteItem = (index) => {
+  const deleteItem = (id) => {
     const updateditems = posts.filter((post) => {
-      return index !== post.id;
-    })
+      return id !== post.id;
+    });
     setPosts(updateditems);
-  }
+  };
 
   const handleSave = () => {
+    let newId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
+
 
     let obj = {
+      id: newId,
       upvote: Math.floor(Math.random() * 400),
       image: `https://picsum.photos/id/${Math.floor(Math.random() * 50)}/400/300`,
       title: title,
