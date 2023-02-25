@@ -36,15 +36,18 @@ function Posts() {
   }, [posts]);
 
   const deleteItem = (id) => {
-    const updateditems = posts.filter((post) => {
-      return id !== post.id;
-    });
-    setPosts(updateditems);
+    if (isAuthenticated) {
+      const updatedItems = posts.filter((post) => {
+        return id !== post.id;
+      });
+      setPosts(updatedItems);
+    } else {
+      alert("Please login first..");
+    }
   };
 
   const handleSave = () => {
     let newId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
-
 
     let obj = {
       id: newId,
@@ -52,8 +55,8 @@ function Posts() {
       image: `https://picsum.photos/id/${Math.floor(Math.random() * 50)}/400/300`,
       title: title,
       comments_count: Math.floor(Math.random() * 400),
-      user: "theindependentonline",
-      subreddit: "politics",
+      user: " the independent online ",
+      subreddit: "persion",
     }
 
     setPosts([...posts, obj]);
